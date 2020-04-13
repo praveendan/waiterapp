@@ -47,10 +47,10 @@ public class TablesFragment extends Fragment {
         data.add(6);
         data.add(7);
 
-
+        //gets the PArent to load the tiles
         grid = view.findViewById(R.id.table_grid);
         Context context = getContext();
-
+        //GridLayoutManager will set tiles for each row in the pArent RecyclerView
         grid.setLayoutManager(new GridLayoutManager(context, 3));
         TableAdaptor adapter = new TableAdaptor(context, data);
         grid.setAdapter(adapter);
