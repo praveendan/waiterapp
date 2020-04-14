@@ -17,11 +17,12 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         isIpSet= intent.getExtras().getBoolean("isIpSet");
-        serverName= intent.getStringExtra("ipAddress");
+        serverName = intent.getStringExtra("ipAddress");
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if(isIpSet){
+        String userId = getIntent().getStringExtra("USER_ID");
+        if(isIpSet && userId == null){
             Bundle bundle = new Bundle();
             bundle.putString("serverName", serverName);
             LoginFragment fragobj = new LoginFragment();

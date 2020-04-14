@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.loginapp.handlers.EntityHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,8 @@ import java.util.List;
 public class LoginFragment extends Fragment {
     List<String> userList = new ArrayList<String>();
     String address;
+    private EntityHandler _entityHandler= EntityHandler.getInstance();
+
     public LoginFragment() {
     }
 
@@ -33,10 +37,15 @@ public class LoginFragment extends Fragment {
         final View view= inflater.inflate(R.layout.fragment_login, container, false);
         address = getArguments().getString("serverName");
         Button loginButton = view.findViewById(R.id.btn_login);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Spinner userSelector = view.findViewById(R.id.waiter_spinner);
+                String userId =  userSelector.getSelectedItem().toString();
                 Intent intent=new Intent(getActivity(), OrderActivity.class);
+                intent.putExtra("USER_ID", userId);
+                getActivity().finish();
                 startActivity(intent);
             }
         });
@@ -50,8 +59,7 @@ public class LoginFragment extends Fragment {
 
         //initialize your view here for use view.findViewById("your view id")
         Spinner spinner = (Spinner) view.findViewById(R.id.waiter_spinner);
-        userList.add("aaa");
-        userList.add("bbb");
+        userList = _entityHandler.getUsers();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, userList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

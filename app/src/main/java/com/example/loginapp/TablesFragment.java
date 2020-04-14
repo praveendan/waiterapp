@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.loginapp.entities.Table;
+import com.example.loginapp.handlers.EntityHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,8 @@ import java.util.List;
  */
 public class TablesFragment extends Fragment {
     RecyclerView grid;
-    private List<Integer> data = new ArrayList<Integer>();
+    private List<Table> data = new ArrayList<>();
+    private EntityHandler _entityHandler= EntityHandler.getInstance();
 
     public TablesFragment() {
         // Required empty public constructor
@@ -39,13 +43,7 @@ public class TablesFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        data.add(1);
-        data.add(2);
-        data.add(3);
-        data.add(4);
-        data.add(5);
-        data.add(6);
-        data.add(7);
+        data = _entityHandler.getTables();
 
         //gets the PArent to load the tiles
         grid = view.findViewById(R.id.table_grid);
