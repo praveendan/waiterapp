@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.loginapp.entities.Table;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,9 +23,17 @@ public class TableAdaptor extends RecyclerView.Adapter<TableAdaptor.ViewHolder> 
     private List<Table> data;
     private LayoutInflater layoutInflater;
 
-    TableAdaptor(Context context, List<Table> data){
+    TableAdaptor(Context context){
         this.layoutInflater = LayoutInflater.from(context);
+        data = new ArrayList<>();
+
+    }
+
+    public void setTables(List<Table> data, TextView textView){
         this.data = data;
+        if(data != null)
+            textView.setText(data.size() + " Tables");
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -39,6 +49,19 @@ public class TableAdaptor extends RecyclerView.Adapter<TableAdaptor.ViewHolder> 
         String tableId = String.valueOf(data.get(position).getTableId());
 
         holder.textID.setText(tableId);
+        holder.card.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Toast toast = Toast.makeText(v.getContext().getApplicationContext() ,
+                        "This is a message  in a Toast",
+                        Toast.LENGTH_SHORT);
+
+                toast.show();
+            }
+
+        });
     }
 
     @Override
@@ -48,10 +71,12 @@ public class TableAdaptor extends RecyclerView.Adapter<TableAdaptor.ViewHolder> 
     // gets all the input fields and information
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView textID; //CardView card;
+        View card;
         public ViewHolder(View itemView){
             super(itemView);
          //   card = itemView.findViewById(R.id.table_card);
             textID = itemView.findViewById(R.id.table_id);
+            card = itemView;
         }
     }
 }

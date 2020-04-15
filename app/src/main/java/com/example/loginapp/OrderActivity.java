@@ -5,16 +5,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.loginapp.entities.Order;
 import com.example.loginapp.handlers.OrderHandler;
+import com.example.loginapp.viewModels.OrderViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +36,9 @@ public class OrderActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.order_layout, new TablesFragment());
         fragmentTransaction.commit();
+        /*setting the viewmodel*/
+        OrderViewModel model = ViewModelProviders.of(this).get(OrderViewModel.class);
+        model.setUserId(userId);
     }
 
     public String getUserId(){
@@ -49,6 +51,7 @@ public class OrderActivity extends AppCompatActivity {
         return true;
     }
 
+    /* this is for the context Menu */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -61,27 +64,5 @@ public class OrderActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void startOrder(View view) {
-        TextView table = view.findViewById(R.id.table_id);
-        int tableId = Integer.parseInt(table.getText().toString());
-        orderList.add(_orderHandler.createNewOrder(tableId));
-
-
-        //MenuFragment fragobj = new MenuFragment();
-        //fragobj.setArguments(bundle);
-       // FragmentManager fragmentManager = getSupportFragmentManager();
-       // FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        //getSupportFragmentManager().beginTransaction()
-        //        .replace(R.id.order_layout, fragobj)
-        //        .addToBackStack(null)
-        //        .commit();
-
-        Toast toast = Toast.makeText(getApplicationContext(),
-               "This is a message displayed in a Toast",
-                Toast.LENGTH_SHORT);
-
-        toast.show();
     }
 }

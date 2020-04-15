@@ -30,7 +30,6 @@
                 android:id="@+id/num_of_tables_title"
                 android:layout_marginTop="6dp"
                 android:layout_below="@id/table_title"
-                android:text="12 Tables"
                 android:textSize="14sp"
                 android:fontFamily="@font/roboto_regular"
                 android:layout_width="wrap_content"
