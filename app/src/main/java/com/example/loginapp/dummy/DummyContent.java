@@ -23,12 +23,15 @@ public class DummyContent {
      */
     public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-    private static final int COUNT = 25;
+    private static final int COUNT = 24;
 
     static {
         // Add some sample items.
         for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
+            boolean isCatStart =  false;
+            if(i % 6 == 1)
+                isCatStart = true;
+            addItem(createDummyItem(i, isCatStart));
         }
     }
 
@@ -37,8 +40,8 @@ public class DummyContent {
         ITEM_MAP.put(item.id, item);
     }
 
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+    private static DummyItem createDummyItem(int position, boolean isCatStart) {
+        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position), isCatStart);
     }
 
     private static String makeDetails(int position) {
@@ -54,14 +57,16 @@ public class DummyContent {
      * A dummy item representing a piece of content.
      */
     public static class DummyItem {
+        public boolean isFirst = false;
         public final String id;
         public final String content;
         public final String details;
 
-        public DummyItem(String id, String content, String details) {
+        public DummyItem(String id, String content, String details, boolean isCatStart) {
             this.id = id;
             this.content = content;
             this.details = details;
+            this.isFirst = isCatStart;
         }
 
         @Override

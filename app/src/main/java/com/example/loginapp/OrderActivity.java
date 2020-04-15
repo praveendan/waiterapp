@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.loginapp.dummy.DummyContent;
 import com.example.loginapp.entities.Order;
 import com.example.loginapp.handlers.OrderHandler;
 import com.example.loginapp.viewModels.OrderViewModel;
@@ -18,7 +19,7 @@ import com.example.loginapp.viewModels.OrderViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity implements TablesFragment.OnListFragmentInteractionListener, MenuFragment.OnListFragmentInteractionListener {
     private String userId;
     private List<Order> orderList;
     private OrderHandler _orderHandler;
@@ -64,5 +65,16 @@ public class OrderActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    //interation in the TablesFragment
+    @Override
+    public void onListFragmentInteraction(String item) {
+        OrderViewModel model = ViewModelProviders.of(this).get(OrderViewModel.class);
+        model.startOrder(item);
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
     }
 }

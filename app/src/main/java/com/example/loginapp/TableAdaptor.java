@@ -5,9 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.loginapp.entities.Table;
@@ -22,11 +23,11 @@ import java.util.List;
 public class TableAdaptor extends RecyclerView.Adapter<TableAdaptor.ViewHolder> {
     private List<Table> data;
     private LayoutInflater layoutInflater;
-
-    TableAdaptor(Context context){
+    private final TablesFragment.OnListFragmentInteractionListener mListener;
+    TableAdaptor(Context context, TablesFragment.OnListFragmentInteractionListener listener){
         this.layoutInflater = LayoutInflater.from(context);
         data = new ArrayList<>();
-
+        mListener = listener;
     }
 
     public void setTables(List<Table> data, TextView textView){
@@ -53,12 +54,18 @@ public class TableAdaptor extends RecyclerView.Adapter<TableAdaptor.ViewHolder> 
 
             @Override
             public void onClick(View v) {
+                if (null != mListener) {
+                    // Notify the active callbacks interface (the activity, if the
+                    // fragment is attached to one) that an item has been selected.
+                    mListener.onListFragmentInteraction(tableId);
+                }
 
-                Toast toast = Toast.makeText(v.getContext().getApplicationContext() ,
-                        "This is a message  in a Toast",
-                        Toast.LENGTH_SHORT);
-
-                toast.show();
+                MenuFragment fragobj = new MenuFragment();
+                FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.order_layout, fragobj)
+                        .addToBackStack(null)
+                        .commit();
             }
 
         });

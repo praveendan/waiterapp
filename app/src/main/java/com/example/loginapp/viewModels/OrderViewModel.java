@@ -20,13 +20,18 @@ This  class will handle the order process
 public class OrderViewModel extends ViewModel {
     private String userId;
     private List<Order> orderList;
-    private OrderHandler _orderHandler;
+    private Order currentOrder;
+    private OrderHandler _orderHandler = OrderHandler.getInstance();
     private EntityHandler _entityHandler= EntityHandler.getInstance();
 
     private MutableLiveData<List<Table>> tablesList;
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public void startOrder(String tableId) {
+        currentOrder = _orderHandler.createNewOrder(Integer.parseInt(tableId));
     }
 
     public OrderViewModel(){
@@ -49,7 +54,7 @@ public class OrderViewModel extends ViewModel {
             tablesArrayList =_entityHandler.getTables();
 
             tablesList.setValue(tablesArrayList);
-        }, 5000);
+        }, 1000);
 
     }
 }
