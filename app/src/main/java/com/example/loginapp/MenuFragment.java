@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.loginapp.dummy.DummyContent;
-import com.example.loginapp.dummy.DummyContent.DummyItem;
+import com.example.loginapp.dummy.MenuContent;
+import com.example.loginapp.viewModels.OrderViewModel;
 
 /**
  * A fragment representing a list of Items.
@@ -59,16 +60,19 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu_list, container, false);
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MenuAdapter(DummyContent.ITEMS, mListener));
+        Context context = view.getContext();
+        RecyclerView recyclerView =  (RecyclerView)view.findViewById(R.id.list);
+        if (mColumnCount <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+        // Populate Menu from the VIewModel
+        OrderViewModel model = ViewModelProviders.of(getActivity()).get(OrderViewModel.class);
+        model.getMenuItems().observe(getViewLifecycleOwner(), item -> {
+            MenuAdapter adapter = new MenuAdapter(item, mListener);
+            recyclerView.setAdapter(adapter);
+        });
         return view;
     }
 
@@ -102,6 +106,6 @@ public class MenuFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(MenuContent.MenuItem item, View v);
     }
 }

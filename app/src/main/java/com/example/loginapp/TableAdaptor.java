@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -24,6 +25,7 @@ public class TableAdaptor extends RecyclerView.Adapter<TableAdaptor.ViewHolder> 
     private List<Table> data;
     private LayoutInflater layoutInflater;
     private final TablesFragment.OnListFragmentInteractionListener mListener;
+
     TableAdaptor(Context context, TablesFragment.OnListFragmentInteractionListener listener){
         this.layoutInflater = LayoutInflater.from(context);
         data = new ArrayList<>();
@@ -58,14 +60,17 @@ public class TableAdaptor extends RecyclerView.Adapter<TableAdaptor.ViewHolder> 
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(tableId);
+                    MenuFragment fragobj = new MenuFragment();
+                    FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.order_layout, fragobj)
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    Toast.makeText(v.getContext(),"Problem Starting order. Please Try again later",Toast.LENGTH_LONG).show();
                 }
 
-                MenuFragment fragobj = new MenuFragment();
-                FragmentManager fragmentManager = ((FragmentActivity) v.getContext()).getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.order_layout, fragobj)
-                        .addToBackStack(null)
-                        .commit();
+
             }
 
         });

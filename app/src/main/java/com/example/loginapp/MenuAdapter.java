@@ -4,25 +4,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.loginapp.MenuFragment.OnListFragmentInteractionListener;
-import com.example.loginapp.dummy.DummyContent.DummyItem;
+import com.example.loginapp.dummy.MenuContent;
+import com.example.loginapp.dummy.MenuContent.MenuItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link MenuContent.MenuItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<MenuContent.MenuItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MenuAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MenuAdapter(List<MenuContent.MenuItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -37,10 +39,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
-        if(mValues.get(position).isFirst == true)
-            holder.mCategoryView.setText("Category");
+        holder.mCategoryView.setText(mValues.get(position).category);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +48,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.mItem, v);
+                } else {
+                    Toast.makeText(v.getContext(),"Problem loading information. Please try again later",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -61,15 +63,15 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+    //    public final TextView mIdView;
         public final TextView mContentView;
         public final TextView mCategoryView;
-        public DummyItem mItem;
+        public MenuItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
+        //    mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
             mCategoryView = (TextView) view.findViewById(R.id.category_title);
         }

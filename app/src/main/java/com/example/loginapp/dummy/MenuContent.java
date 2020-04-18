@@ -11,17 +11,17 @@ import java.util.Map;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
+public class MenuContent {
 
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    public static final List<MenuItem> ITEMS = new ArrayList<MenuItem>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final Map<String, MenuItem> ITEM_MAP = new HashMap<String, MenuItem>();
 
     private static final int COUNT = 24;
 
@@ -29,19 +29,24 @@ public class DummyContent {
         // Add some sample items.
         for (int i = 1; i <= COUNT; i++) {
             boolean isCatStart =  false;
-            if(i % 6 == 1)
+            String category;
+            if(i % 6 == 1){
                 isCatStart = true;
-            addItem(createDummyItem(i, isCatStart));
+                category = "cat" + i;
+            }else{
+                category = "";
+            }
+            addItem(createDummyItem(i, isCatStart, category));
         }
     }
 
-    private static void addItem(DummyItem item) {
+    private static void addItem(MenuItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static DummyItem createDummyItem(int position, boolean isCatStart) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position), isCatStart);
+    private static MenuItem createDummyItem(int position, boolean isCatStart, String category) {
+        return new MenuItem(String.valueOf(position), "Item " + position, makeDetails(position), isCatStart, category);
     }
 
     private static String makeDetails(int position) {
@@ -56,17 +61,19 @@ public class DummyContent {
     /**
      * A dummy item representing a piece of content.
      */
-    public static class DummyItem {
+    public static class MenuItem {
         public boolean isFirst = false;
         public final String id;
         public final String content;
         public final String details;
+        public final String category;
 
-        public DummyItem(String id, String content, String details, boolean isCatStart) {
+        public MenuItem(String id, String content, String details, boolean isCatStart, String category) {
             this.id = id;
             this.content = content;
             this.details = details;
             this.isFirst = isCatStart;
+            this.category = category;
         }
 
         @Override

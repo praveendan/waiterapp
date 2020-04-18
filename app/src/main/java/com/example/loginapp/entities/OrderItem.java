@@ -5,5 +5,4 @@ public class OrderItem {
     private int numberOfItems;
     private String note;
     private MenuItemEntity item;
-
 }

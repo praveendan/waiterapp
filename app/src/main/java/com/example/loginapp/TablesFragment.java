@@ -44,7 +44,7 @@ public class TablesFragment extends Fragment {
         Context context = getContext();
         //GridLayoutManager will set tiles for each row in the pArent RecyclerView
         grid.setLayoutManager(new GridLayoutManager(context, 3));
-        TableAdaptor adapter = new TableAdaptor(context,mListener);
+        TableAdaptor adapter = new TableAdaptor(context, mListener);
 
 
        // Populate Tables from the VIewModel
@@ -55,6 +55,18 @@ public class TablesFragment extends Fragment {
             grid.setAdapter(adapter);
         });
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnListFragmentInteractionListener) {
+            mListener = (OnListFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
+    }
+
 
     private OnListFragmentInteractionListener mListener;
     public interface OnListFragmentInteractionListener {

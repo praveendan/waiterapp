@@ -14,4 +14,9 @@
     <string name="your_name">Full Name</string>
 
     <string name="settings_menu_item">Settings</string>
+    <string name="notes">Notes</string>
+    <string name="add">+</string>
+    <string name="remove">-</string>
+    <string name="zero">0</string>
+
 </resources>

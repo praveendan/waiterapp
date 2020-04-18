@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="17sp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="17sp"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_regular"
+                android:text="TextView"
+                android:textSize="17sp" />
+
+            <Button
+                android:id="@+id/add_menu_item_number_of_items_minus"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/btn_prompt"
+                android:text="@string/remove" />
+
+            <EditText
+                android:id="@+id/add_menu_item_number_of_items"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:width="5dp"
+                android:background="@drawable/et_custom"
+                android:ems="10"
+                android:fontFamily="@font/roboto_regular"
+                android:inputType="numberDecimal"
+                android:text="@string/zero"
+                android:autofillHints=""
+                android:hint ="Number of items"/>
+
+            <Button
+                android:id="@+id/add_menu_item_number_of_items_plus"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/btn_prompt"
+                android:text="@string/add" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/add_menu_item_notes_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/notes"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/add_menu_item_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:minLines="5"
+            android:gravity="start|top"
+            android:fontFamily="@font/roboto_regular"
+            android:background="@drawable/et_custom"
+            android:inputType="textMultiLine" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
